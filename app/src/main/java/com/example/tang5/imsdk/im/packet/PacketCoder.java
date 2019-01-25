@@ -12,7 +12,7 @@ import io.netty.buffer.ByteBuf;
  * name:IMSdk
  * <p>
  * version:
- * @description: 包解析器
+ * @description: 包解 析器
  */
 public class PacketCoder implements IPacketCoder {
 
