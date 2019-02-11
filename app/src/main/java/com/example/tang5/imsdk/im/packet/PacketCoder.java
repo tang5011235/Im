@@ -1,5 +1,7 @@
 package com.example.tang5.imsdk.im.packet;
 
+import android.util.Log;
+
 import com.example.tang5.imsdk.im.packet.serializer.ISerializer;
 
 import io.netty.buffer.ByteBuf;
@@ -12,9 +14,10 @@ import io.netty.buffer.ByteBuf;
  * name:IMSdk
  * <p>
  * version:
- * @description: 包解 析器
+ * @description: 包解析器
  */
 public class PacketCoder implements IPacketCoder {
+	private static final String TAG = "PacketCoder";
 
 	private ISerializer mISerializer;
 
@@ -49,9 +52,18 @@ public class PacketCoder implements IPacketCoder {
 		//指令4byte
 		byteBuf.writeInt((Integer) packet.getCommand());
 		//消息id 4byte
-		byteBuf.writeShort(basePacket.getHead().getMsgId());
+		byteBuf.writeInt(basePacket.getHead().getMsgId());
 		//请求体body
 		byteBuf.writeBytes(basePacket.getBodyBytes());
+
+		byte[] bodyBytes = new byte[byteBuf.readableBytes()];
+		byteBuf.readBytes(bodyBytes);
+		byteBuf.resetReaderIndex();
+		StringBuilder stringBuilder = new StringBuilder();
+		for (byte bodyByte : bodyBytes) {
+			stringBuilder.append(bodyByte);
+		}
+		Log.d(TAG, "Im 分装后的发送数据(decode)：" + stringBuilder.toString());
 	}
 
 	@Override
@@ -67,18 +79,21 @@ public class PacketCoder implements IPacketCoder {
 		//消息id
 		int msgId = byteBuf.readInt();
 
-		int bodyLength = packegeLength - headLength;
-		byte[] bodyBytes = new byte[bodyLength];
-		byteBuf.readBytes(byteBuf.readableBytes());
+		//int bodyLength = packegeLength - headLength;
+		//读取包
+		byte[] bodyBytes = new byte[byteBuf.readableBytes()];
+		byteBuf.readBytes(bodyBytes);
+//		byteBuf.resetReaderIndex();
+		//分装为packet对象
 		Object body = mISerializer.deserialize(bodyBytes);
 		final Head head = new Head(command, msgId);
-		BasePacket basePacket = new BasePacket(head,body) {
+		BasePacket basePacket = new BasePacket(head, body) {
 			@Override
 			public Object getCommand() {
 				return command;
 			}
 		};
-		/*TypeToken<T> tTypeToken = new TypeToken<T>() {
+	/*	TypeToken<T> tTypeToken = new TypeToken<T>() {
 		};
 		Class<? super T> rawType = tTypeToken.getRawType();
 		try {
@@ -94,6 +109,7 @@ public class PacketCoder implements IPacketCoder {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}*/
+		Log.d(TAG, "Im 响应数据(decode)：" + basePacket);
 		return basePacket;
 	}
 }

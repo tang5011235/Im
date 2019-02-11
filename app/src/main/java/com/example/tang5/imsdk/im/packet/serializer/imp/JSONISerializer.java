@@ -22,6 +22,7 @@ public class JSONISerializer implements ISerializer {
 
 	@Override
 	public <T> T deserialize(Class<T> clazz, byte[] bytes) {
+
 		return App.mGson.fromJson(new String(bytes,Charset.forName("UTF-8")), clazz);
 	}
 

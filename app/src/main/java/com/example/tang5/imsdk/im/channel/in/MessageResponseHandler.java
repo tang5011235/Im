@@ -15,7 +15,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * version:
  * @description:
  */
-public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket<MessageBean>> {
+public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageRequestPacket<MessageBean>> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket<MessageBean> msg) throws Exception {
 

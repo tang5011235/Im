@@ -44,4 +44,13 @@ class Loginbean {
 	public void setClient_type(int client_type) {
 		this.client_type = client_type;
 	}
+
+	@Override
+	public String toString() {
+		return "Loginbean{" +
+				"device_id='" + device_id + '\'' +
+				", session_id='" + session_id + '\'' +
+				", client_type=" + client_type +
+				'}';
+	}
 }

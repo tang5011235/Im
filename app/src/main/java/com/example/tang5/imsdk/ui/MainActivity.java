@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.tang5.imsdk.App;
 import com.example.tang5.imsdk.R;
 import com.example.tang5.imsdk.im.NettyClient;
 
@@ -18,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				NettyClient.getInstance().connect(App.instance.getHost(),App.instance.getPort(),5);
-				NettyClient.getInstance().connect("192.168.0.8",8021,5);
+				NettyClient.getInstance().connect(App.instance.getHost(),App.instance.getPort(),5);
+//				NettyClient.getInstance().connect("192.168.0.8",8021,5);
 //				NettyClient.getInstance().connect("juejin.im",80,5);
 			}
 		});

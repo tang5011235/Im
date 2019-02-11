@@ -21,7 +21,7 @@ public class BaseWrapBody {
 
 	public BaseWrapBody(Object body) {
 		this.body = body;
-		this.bodyBytes = ISerializer.DEFAULT.serialize(body);
+      		this.bodyBytes = ISerializer.DEFAULT.serialize(body);
 		this.bodylenth = bodyBytes.length;
 	}
 

@@ -1,7 +1,7 @@
 package com.example.tang5.imsdk.im;
 
-import com.example.tang5.imsdk.im.channel.in.LoginResoponsHandler;
-import com.example.tang5.imsdk.im.channel.in.MessageRequestHandler;
+import com.example.tang5.imsdk.im.channel.in.LoginResponseHandler;
+import com.example.tang5.imsdk.im.channel.in.MessageResponseHandler;
 import com.example.tang5.imsdk.im.channel.in.PacketDecoder;
 import com.example.tang5.imsdk.im.channel.out.PacketEncoder;
 
@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
@@ -32,6 +33,7 @@ public class NettyClient {
 	public static final NettyClient ourInstance = new NettyClient();
 	private static final int MAX_RETRY = 5;
 	private Bootstrap mBootstrap;
+	private Channel mChannel;
 
 	public static NettyClient getInstance() {
 		return ourInstance;
@@ -55,8 +57,8 @@ public class NettyClient {
 						//业务逻辑处理
 						ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(400 * 1024, 0, 4, -4, 0));
 						ch.pipeline().addLast(new PacketDecoder());
-						ch.pipeline().addLast(new LoginResoponsHandler());
-						ch.pipeline().addLast(new MessageRequestHandler());
+						ch.pipeline().addLast(new LoginResponseHandler());
+						ch.pipeline().addLast(new MessageResponseHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}
 				});
@@ -84,12 +86,19 @@ public class NettyClient {
 		});
 	}
 
+	/**
+	 * 连接服务器
+	 * @param host
+	 * @param port
+	 * @param retry
+	 */
 	public void connect(final String host, final int port, final int retry) {
 		mBootstrap.connect(host, port).addListener(new ChannelFutureListener() {
 			@Override
 			public void operationComplete(ChannelFuture future) throws Exception {
 				if (future.isSuccess()) {
 					System.out.println("连接成功!");
+					mChannel = ((ChannelFuture) future).channel();
 				} else if (retry == 0) {
 					System.err.println("重试次数已用完，放弃连接！");
 				} else {
@@ -109,4 +118,13 @@ public class NettyClient {
 			}
 		});
 	}
+
+	/**
+	 * 发送消息
+	 *//*
+	public <T> void startSendMessage(MessageRequestPacket<T> msg){
+		if (mChannel != null) {
+			mChannel.writeAndFlush()
+		}
+	}*/
 }
