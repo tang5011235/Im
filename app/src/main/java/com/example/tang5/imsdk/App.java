@@ -34,8 +34,8 @@ public class App extends Application {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString("host", "118.178.156.71");
 		editor.putInt("port", 6002);
-		editor.putString("device_id", "b756d913f6d34deebf2a14252044f90a");
-		editor.putString("session_id", "965afd9b8e63bec3419ed0d98927c22d429d9a52");
+		editor.putString("device_id", "23f477e2e2f64500ad9ba69139205d13");
+		editor.putString("session_id", "599e5dc155be6a4dcf4fce3b01747b0eb298032d");
 		editor.commit();
 	}
 

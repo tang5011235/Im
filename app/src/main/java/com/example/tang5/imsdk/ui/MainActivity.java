@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				NettyClient.getInstance().connect(App.instance.getHost(),App.instance.getPort(),5);
-//				NettyClient.getInstance().connect("192.168.0.8",8021,5);
+				//ws://47.96.62.115:8012
+//				NettyClient.getInstance().connect("47.96.62.115",8012,5);
 //				NettyClient.getInstance().connect("juejin.im",80,5);
 			}
 		});

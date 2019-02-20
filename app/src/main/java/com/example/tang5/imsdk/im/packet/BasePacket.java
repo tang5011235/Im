@@ -10,14 +10,14 @@ package com.example.tang5.imsdk.im.packet;
  * version:
  * @description:
  */
-public abstract class BasePacket<T> implements IPacket<Integer> {
+public abstract class BasePacket implements IPacket<Integer> {
 
 	Head mHead;
-	T mBody;
+	Object mBody;
 	private BaseWrapBody mWrapBody;
 	private int mPacketLength;
 
-	public BasePacket(Head head, T body) {
+	public BasePacket(Head head, Object body) {
 		this.mHead = head;
 		this.mBody = body;
 		this.mWrapBody = new BaseWrapBody(body);
@@ -25,7 +25,7 @@ public abstract class BasePacket<T> implements IPacket<Integer> {
 		this.mHead.setPacketLength(this.mPacketLength);
 	}
 
-	public BasePacket(int command, int msgId, T body) {
+	public BasePacket(int command, int msgId, Object body) {
 		this.mHead = new Head(command, msgId);
 		this.mBody = body;
 		this.mWrapBody = new BaseWrapBody(body);
@@ -38,8 +38,8 @@ public abstract class BasePacket<T> implements IPacket<Integer> {
 	 *
 	 * @return 包体
 	 */
-	public T getBody() {
-		return mBody;
+	public <T> T getBody() {
+		return (T) mBody;
 	}
 
 	/**

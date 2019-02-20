@@ -2,6 +2,7 @@ package com.example.tang5.imsdk.im.packet;
 
 import android.util.Log;
 
+import com.example.tang5.imsdk.im.CommandClassMapping;
 import com.example.tang5.imsdk.im.packet.serializer.ISerializer;
 
 import io.netty.buffer.ByteBuf;
@@ -59,11 +60,7 @@ public class PacketCoder implements IPacketCoder {
 		byte[] bodyBytes = new byte[byteBuf.readableBytes()];
 		byteBuf.readBytes(bodyBytes);
 		byteBuf.resetReaderIndex();
-		StringBuilder stringBuilder = new StringBuilder();
-		for (byte bodyByte : bodyBytes) {
-			stringBuilder.append(bodyByte);
-		}
-		Log.d(TAG, "Im 分装后的发送数据(decode)：" + stringBuilder.toString());
+		Log.d(TAG, "Im 分装后的发送数据(decode)：" + new String(bodyBytes));
 	}
 
 	@Override
@@ -75,7 +72,8 @@ public class PacketCoder implements IPacketCoder {
 		//版本号
 		short version = byteBuf.readShort();
 		//指令
-		final int command = byteBuf.readInt();
+		final int
+				command = byteBuf.readInt();
 		//消息id
 		int msgId = byteBuf.readInt();
 
@@ -85,7 +83,7 @@ public class PacketCoder implements IPacketCoder {
 		byteBuf.readBytes(bodyBytes);
 //		byteBuf.resetReaderIndex();
 		//分装为packet对象
-		Object body = mISerializer.deserialize(bodyBytes);
+		Object body = mISerializer.deserialize(CommandClassMapping.getMappingClass(command),bodyBytes);
 		final Head head = new Head(command, msgId);
 		BasePacket basePacket = new BasePacket(head, body) {
 			@Override
