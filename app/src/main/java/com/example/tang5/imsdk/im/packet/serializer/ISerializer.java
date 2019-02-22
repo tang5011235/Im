@@ -1,5 +1,6 @@
 package com.example.tang5.imsdk.im.packet.serializer;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
 import com.example.tang5.imsdk.im.packet.serializer.imp.JSONISerializer;
 
 public interface ISerializer {
@@ -23,7 +24,5 @@ public interface ISerializer {
 	/**
 	 * 二进制转换成 java 对象
 	 */
-	<T> T deserialize(Class<T> clazz, byte[] bytes);
-
-	<T> T deserialize(byte[] bytes);
+	<T extends BaseResponseBean> T deserialize(Class<T> clazz, byte[] bytes);
 }

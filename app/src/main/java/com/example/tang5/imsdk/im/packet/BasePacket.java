@@ -1,5 +1,7 @@
 package com.example.tang5.imsdk.im.packet;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
+
 /**
  * @author：thf on 2019/1/23 0023 15:05
  * <p>
@@ -13,11 +15,11 @@ package com.example.tang5.imsdk.im.packet;
 public abstract class BasePacket implements IPacket<Integer> {
 
 	Head mHead;
-	Object mBody;
+	BaseResponseBean mBody;
 	private BaseWrapBody mWrapBody;
 	private int mPacketLength;
 
-	public BasePacket(Head head, Object body) {
+	public BasePacket(Head head, BaseResponseBean body) {
 		this.mHead = head;
 		this.mBody = body;
 		this.mWrapBody = new BaseWrapBody(body);
@@ -25,7 +27,7 @@ public abstract class BasePacket implements IPacket<Integer> {
 		this.mHead.setPacketLength(this.mPacketLength);
 	}
 
-	public BasePacket(int command, int msgId, Object body) {
+	public BasePacket(int command, int msgId, BaseResponseBean body) {
 		this.mHead = new Head(command, msgId);
 		this.mBody = body;
 		this.mWrapBody = new BaseWrapBody(body);
@@ -38,7 +40,7 @@ public abstract class BasePacket implements IPacket<Integer> {
 	 *
 	 * @return 包体
 	 */
-	public <T> T getBody() {
+	public <T extends BaseResponseBean> T getBody() {
 		return (T) mBody;
 	}
 

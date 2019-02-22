@@ -3,6 +3,7 @@ package com.example.tang5.imsdk.im.packet;
 import android.util.Log;
 
 import com.example.tang5.imsdk.im.CommandClassMapping;
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
 import com.example.tang5.imsdk.im.packet.serializer.ISerializer;
 
 import io.netty.buffer.ByteBuf;
@@ -72,42 +73,24 @@ public class PacketCoder implements IPacketCoder {
 		//版本号
 		short version = byteBuf.readShort();
 		//指令
-		final int
-				command = byteBuf.readInt();
+		final int command = byteBuf.readInt();
 		//消息id
 		int msgId = byteBuf.readInt();
-
-		//int bodyLength = packegeLength - headLength;
 		//读取包
 		byte[] bodyBytes = new byte[byteBuf.readableBytes()];
 		byteBuf.readBytes(bodyBytes);
-//		byteBuf.resetReaderIndex();
+		BaseResponseBean body = mISerializer.deserialize(CommandClassMapping.getMappingClass(command), bodyBytes);
 		//分装为packet对象
-		Object body = mISerializer.deserialize(CommandClassMapping.getMappingClass(command),bodyBytes);
 		final Head head = new Head(command, msgId);
 		BasePacket basePacket = new BasePacket(head, body) {
 			@Override
-			public Object getCommand() {
+			public Integer getCommand() {
 				return command;
 			}
 		};
-	/*	TypeToken<T> tTypeToken = new TypeToken<T>() {
-		};
-		Class<? super T> rawType = tTypeToken.getRawType();
-		try {
-			Constructor<? super T> constructor = rawType.getConstructor();
-			T packet = (T) constructor.newInstance(head, body);
-			return packet;
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}*/
+		body.mBasePacket = basePacket;
 		Log.d(TAG, "Im 响应数据(decode)：" + basePacket);
+
 		return basePacket;
 	}
 }

@@ -1,5 +1,8 @@
 package com.example.tang5.imsdk.im;
 
+import com.example.tang5.imsdk.im.bean.LogingResponseBean;
+import com.example.tang5.imsdk.im.packet.Command;
+
 import java.util.HashMap;
 
 /**
@@ -16,6 +19,7 @@ public class CommandClassMapping {
 	private static HashMap<Integer,Class> mCommandMap;
 	private CommandClassMapping() {
 		mCommandMap = new HashMap<>();
+		mCommandMap.put(Command.LOGIN, LogingResponseBean.class);
 	}
 
 	public static CommandClassMapping getInstance() {

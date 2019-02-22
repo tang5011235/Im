@@ -22,6 +22,6 @@ public class PacketDecoder extends ByteToMessageDecoder {
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-		PacketCoder.Coder.decode(in);
+		out.add(PacketCoder.Coder.decode(in));
 	}
 }

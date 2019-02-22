@@ -12,7 +12,7 @@ import java.util.Arrays;
  * name:IMSdk
  * <p>
  * version:
- * @description: im message body
+ * @description: im message body 对body做一次封装，对body属性进行扩展
  */
 public class BaseWrapBody {
 	private int bodylenth;
