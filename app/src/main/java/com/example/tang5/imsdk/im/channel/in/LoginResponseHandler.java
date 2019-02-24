@@ -3,6 +3,7 @@ package com.example.tang5.imsdk.im.channel.in;
 import android.util.Log;
 
 import com.example.tang5.imsdk.App;
+import com.example.tang5.imsdk.im.bean.LogingResponseBean;
 import com.example.tang5.imsdk.im.packet.Command;
 import com.example.tang5.imsdk.im.packet.LoginRequestPacket;
 import com.example.tang5.imsdk.im.packet.PacketCoder;
@@ -21,13 +22,14 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * version:
  * @description:
  */
-public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRequestPacket<Loginbean>> {
+public class LoginResponseHandler extends SimpleChannelInboundHandler<LogingResponseBean> {
 	private static final String TAG = "LoginResponseHandler";
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		// 创建登录对象
 		Loginbean loginbean = new Loginbean(App.instance.getDeviceId(), App.instance.getSessionId(),5);
-		LoginRequestPacket<Loginbean> loginRequestPacket = new LoginRequestPacket<>(Command.LOGIN, 1000, loginbean);
+		LoginRequestPacket loginRequestPacket = new LoginRequestPacket(Command.LOGIN, 1000, loginbean);
+		loginbean.mBasePacket = loginRequestPacket;
 		System.out.println(loginRequestPacket);
 		ByteBuf buffer = ctx.alloc().buffer();
 		PacketCoder.Coder.encode(loginRequestPacket, buffer);
@@ -37,7 +39,7 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginReque
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket<Loginbean> msg) throws Exception {
-		Log.e(TAG, "获取到的登录commandId: "+msg.getCommand());
+	protected void channelRead0(ChannelHandlerContext ctx, LogingResponseBean msg) throws Exception {
+		Log.e(TAG, "获取到的登录commandId: "+msg.getCmpId());
 	}
 }

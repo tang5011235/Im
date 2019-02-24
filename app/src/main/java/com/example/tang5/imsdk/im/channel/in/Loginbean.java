@@ -1,5 +1,7 @@
 package com.example.tang5.imsdk.im.channel.in;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
+
 /**
  * @author：thf on 2019/1/24 0024 10:20
  * <p>
@@ -10,10 +12,11 @@ package com.example.tang5.imsdk.im.channel.in;
  * version:
  * @description:
  */
-class Loginbean {
+class Loginbean extends BaseResponseBean {
 	private String device_id;
 	private String session_id;
 	private int client_type;
+
 
 	public Loginbean(String device_id, String session_id, int client_type) {
 		this.device_id = device_id;

@@ -1,6 +1,5 @@
 package com.example.tang5.imsdk.im.bean;
 
-import com.example.tang5.imsdk.im.packet.BasePacket;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -36,8 +35,6 @@ public class LogingResponseBean extends BaseResponseBean{
 	private String employeeId;
 	@SerializedName("employee_name")
 	private String employeeName;
-
-	public BasePacket mBasePacket;
 
 	public String getCmpId() {
 		return cmpId;

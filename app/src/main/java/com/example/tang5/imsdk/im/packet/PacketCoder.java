@@ -65,7 +65,7 @@ public class PacketCoder implements IPacketCoder {
 	}
 
 	@Override
-	public BasePacket decode(ByteBuf byteBuf) {
+	public BaseResponseBean decode(ByteBuf byteBuf) {
 		//总包长
 		int packegeLength = byteBuf.readInt();
 		//头长度
@@ -91,6 +91,6 @@ public class PacketCoder implements IPacketCoder {
 		body.mBasePacket = basePacket;
 		Log.d(TAG, "Im 响应数据(decode)：" + basePacket);
 
-		return basePacket;
+		return body;
 	}
 }

@@ -1,5 +1,7 @@
 package com.example.tang5.imsdk.im.packet;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
+
 /**
  * @author：thf on 2019/1/24 0024 10:37
  * <p>
@@ -10,7 +12,7 @@ package com.example.tang5.imsdk.im.packet;
  * version:
  * @description:
  */
-public class MessageRequestPacket<T> extends BasePacket<T> {
+public class MessageRequestPacket<T extends BaseResponseBean> extends BasePacket {
 	public MessageRequestPacket(Head head, T body) {
 		super(head, body);
 	}

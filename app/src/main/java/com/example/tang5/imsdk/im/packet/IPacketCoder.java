@@ -1,5 +1,7 @@
 package com.example.tang5.imsdk.im.packet;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
+
 import io.netty.buffer.ByteBuf;
 
 /**
@@ -15,5 +17,5 @@ import io.netty.buffer.ByteBuf;
 public interface IPacketCoder {
 	<T extends IPacket> void encode(T packet,ByteBuf byteBuf);
 
-	BasePacket decode(ByteBuf byteBuf);
+	BaseResponseBean decode(ByteBuf byteBuf);
 }

@@ -1,7 +1,5 @@
 package com.example.tang5.imsdk.im.channel.in;
 
-import com.example.tang5.imsdk.im.packet.MessageRequestPacket;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -15,9 +13,10 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * version:
  * @description:
  */
-public class MessageResponseHandler extends SimpleChannelInboundHandler<MessageRequestPacket<MessageBean>> {
+public class MessageResponseHandler extends SimpleChannelInboundHandler {
+
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket<MessageBean> msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 	}
 }
