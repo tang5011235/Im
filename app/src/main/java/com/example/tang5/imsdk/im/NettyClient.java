@@ -3,6 +3,7 @@ package com.example.tang5.imsdk.im;
 import com.example.tang5.imsdk.im.channel.in.LoginResponseHandler;
 import com.example.tang5.imsdk.im.channel.in.MessageResponseHandler;
 import com.example.tang5.imsdk.im.channel.in.PacketDecoder;
+import com.example.tang5.imsdk.im.channel.in.SuccessResponseHandler;
 import com.example.tang5.imsdk.im.channel.out.PacketEncoder;
 
 import java.util.Date;
@@ -58,6 +59,7 @@ public class NettyClient {
 						ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(400 * 1024, 0, 4, -4, 0));
 						ch.pipeline().addLast(new PacketDecoder());
 						ch.pipeline().addLast(new LoginResponseHandler());
+						ch.pipeline().addLast(new SuccessResponseHandler());
 						ch.pipeline().addLast(new MessageResponseHandler());
 						ch.pipeline().addLast(new PacketEncoder());
 					}

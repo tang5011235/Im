@@ -35,7 +35,7 @@ public class App extends Application {
 		editor.putString("host", "118.178.156.71");
 		editor.putInt("port", 6002);
 		editor.putString("device_id", "23f477e2e2f64500ad9ba69139205d13");
-		editor.putString("session_id", "599e5dc155be6a4dcf4fce3b01747b0eb298032d");
+		editor.putString("session_id", "179bfada60ff72030e9acb07fc9785a46053538d");
 		editor.commit();
 	}
 

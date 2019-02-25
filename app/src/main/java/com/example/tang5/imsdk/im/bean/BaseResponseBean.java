@@ -14,4 +14,5 @@ import com.example.tang5.imsdk.im.packet.BasePacket;
  */
 public class BaseResponseBean {
 	public BasePacket mBasePacket;
+	public String message;
 }

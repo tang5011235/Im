@@ -1,6 +1,9 @@
 package com.example.tang5.imsdk.im;
 
+import com.example.tang5.imsdk.im.bean.BaseResponseBean;
+import com.example.tang5.imsdk.im.bean.HeartBean;
 import com.example.tang5.imsdk.im.bean.LogingResponseBean;
+import com.example.tang5.imsdk.im.bean.SuccessBean;
 import com.example.tang5.imsdk.im.packet.Command;
 
 import java.util.HashMap;
@@ -16,21 +19,32 @@ import java.util.HashMap;
  * @description:
  */
 public class CommandClassMapping {
-	private static HashMap<Integer,Class> mCommandMap;
-	private CommandClassMapping() {
-		mCommandMap = new HashMap<>();
-		mCommandMap.put(Command.LOGIN, LogingResponseBean.class);
-	}
+    private static HashMap<Integer, Class> mCommandMap;
 
-	public static CommandClassMapping getInstance() {
-		return singletonHolder.sInstance;
-	}
+    private CommandClassMapping() {
+        mCommandMap = new HashMap<>();
+        mCommandMap.put(Command.LOGIN, LogingResponseBean.class);
+        mCommandMap.put(Command.LOGIN_OUTMODED, BaseResponseBean.class);
+        mCommandMap.put(Command.SEND_SUCCESS, SuccessBean.class);
+        mCommandMap.put(Command.AAA, HeartBean.class);
+    }
 
-	private static class singletonHolder {
-		private static final CommandClassMapping sInstance = new CommandClassMapping();
-	}
+    public static CommandClassMapping getInstance() {
+        return singletonHolder.sInstance;
+    }
 
-	public static Class getMappingClass(int commandId){
-		return mCommandMap.get(commandId);
-	}
+    private static class singletonHolder {
+        private static final CommandClassMapping sInstance = new CommandClassMapping();
+    }
+
+    public static Class getMappingClass(int commandId) {
+        if (mCommandMap == null) {
+            getInstance();
+        }
+        Class aClass = mCommandMap.get(commandId);
+        if (aClass == null) {
+            throw new IllegalArgumentException("there is no class for commandId: " + commandId);
+        }
+        return aClass;
+    }
 }

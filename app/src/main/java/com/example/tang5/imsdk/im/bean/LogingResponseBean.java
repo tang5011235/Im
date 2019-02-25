@@ -83,4 +83,16 @@ public class LogingResponseBean extends BaseResponseBean{
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
+
+	@Override
+	public String toString() {
+		return "LogingResponseBean{" +
+				"cmpId='" + cmpId + '\'' +
+				", depaId='" + depaId + '\'' +
+				", depaName='" + depaName + '\'' +
+				", employeeAvatar='" + employeeAvatar + '\'' +
+				", employeeId='" + employeeId + '\'' +
+				", employeeName='" + employeeName + '\'' +
+				'}';
+	}
 }

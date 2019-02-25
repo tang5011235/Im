@@ -54,6 +54,7 @@ class Loginbean extends BaseResponseBean {
 				"device_id='" + device_id + '\'' +
 				", session_id='" + session_id + '\'' +
 				", client_type=" + client_type +
+				", message='" + message + '\'' +
 				'}';
 	}
 }
